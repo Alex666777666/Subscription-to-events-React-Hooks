@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
-function ConnectionStatus() {
-  const [status, setIsOnline] = useState(navigator.onLine)
+const ConnectionStatus = () => {
+  const [status, setStatus] = useState('online')
 
   useEffect(() => {
     const handleOnline = () => {
-      setIsOnline(true)
+      setStatus('online')
     }
 
     const handleOffline = () => {
-      setIsOnline(false)
+      setStatus('offline')
     }
 
     window.addEventListener('online', handleOnline)
@@ -19,11 +19,11 @@ function ConnectionStatus() {
       window.removeEventListener('online', handleOnline)
       window.removeEventListener('offline', handleOffline)
     }
-  }, [])
+  }, [status])
 
   return (
     <div className={status ? 'status' : 'status status_offline'}>
-      <p>Status: {status ? 'Online' : 'Offline'}</p>
+      {status === 'online' ? 'online' : 'offline'}
     </div>
   )
 }
